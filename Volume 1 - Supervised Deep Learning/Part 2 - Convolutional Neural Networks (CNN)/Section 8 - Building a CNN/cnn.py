@@ -63,20 +63,20 @@ test_set = test_datagen.flow_from_directory('dataset/test_set',
                                             class_mode = 'binary')
 
 classifier.fit_generator(training_set,
-                         steps_per_epoch = 8000,
-                         epochs = 25,
+                         steps_per_epoch = 4000,
+                         epochs = 10,
                          validation_data = test_set,
                          validation_steps = 2000)
 
 
 from keras.models import load_model
-classifier.save('cat_dog.h5')
-#classifier = load_model('cat_dog.h5')
+#classifier.save('cat_dog.h5')
+classifier = load_model('cat_dog.h5')
 
 import numpy as np
-from keras.preprocessingprocessing import image
+from keras.preprocessing import image
 test_image_dumbo = image.load_img('dataset/single_prediction/dumbo.JPG',target_size=(64,64))
-test_image_dumbo1 = image.load_img('dataset/single_prediction/shamu.JPG',target_size=(64,64))
+test_image_dumbo1 = image.load_img('dataset/single_prediction/dumbo1.JPG',target_size=(64,64))
 test_image_dumbo = np.expand_dims(image.img_to_array(test_image_dumbo),axis=0)
 test_image_dumbo1 = np.expand_dims(image.img_to_array(test_image_dumbo1),axis=0)
 result_dumbo = classifier.predict(test_image_dumbo)
