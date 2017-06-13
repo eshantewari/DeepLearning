@@ -1,3 +1,23 @@
+'''
+
+import os
+import tensorflow as tf
+import keras.backend.tensorflow_backend as KTF
+
+def get_session(gpu_fraction=.4):
+
+    num_threads = os.environ.get('OMP_NUM_THREADS')
+    gpu_options = tf.GPUOptions(per_process_gpu_memory_fraction=gpu_fraction)
+
+    if num_threads:
+        print("hi")
+        return tf.Session(config=tf.ConfigProto(
+            gpu_options=gpu_options, intra_op_parallelism_threads=num_threads))
+    else:
+        return tf.Session(config=tf.ConfigProto(gpu_options=gpu_options))
+
+KTF.set_session(get_session())
+'''
 # Classification template
 
 # Importing the libraries
@@ -33,7 +53,6 @@ X_test = sc.transform(X_test)
 # Fitting classifier to the Training set
 # Create your classifier here
 
-import keras
 from keras.models import Sequential
 from keras.layers import Dense, Activation, Dropout
 
